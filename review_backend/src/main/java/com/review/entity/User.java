@@ -1,5 +1,7 @@
 package com.review.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class User {
     private Integer id;
 
     @Column(nullable = false)
+    @NotEmpty
     private String email;
 
     public User(String email) {

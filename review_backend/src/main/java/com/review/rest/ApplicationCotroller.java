@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,12 @@ public class ApplicationCotroller {
     public ResponseEntity getAllUsers(){
         List<User> users = userService.getAll();
         return ResponseEntity.ok(users);
+    }
+
+    @RequestMapping(value="/testa")
+    public String test(HttpServletRequest request){
+        System.out.println(request.getRemoteAddr());
+        return "Done!";
     }
 
 }

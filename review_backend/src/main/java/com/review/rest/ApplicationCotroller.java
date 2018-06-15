@@ -1,6 +1,8 @@
 package com.review.rest;
 
+import com.review.entity.Counter;
 import com.review.entity.User;
+import com.review.service.CounterService;
 import com.review.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,16 +18,21 @@ import java.util.List;
 public class ApplicationCotroller {
 
     private final UserService userService;
+    private static CounterService counterService;
 
     @Autowired
-    public ApplicationCotroller(UserService userService){
+    public ApplicationCotroller(UserService userService, CounterService counterService){
         this.userService = userService;
+        this.counterService = counterService;
     }
 
 
     @RequestMapping(value="/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity login(@RequestParam("email") String email){
-        User user = userService.create(new User(email));
+        User usr = new User();
+        usr.setEmail("radu.muntean@socgen.com");
+        usr.setPassword("aafsfsfsfsdfsdf");
+        User user = userService.create(usr);
         return ResponseEntity.ok(user);
     }
 
@@ -38,7 +45,7 @@ public class ApplicationCotroller {
     @RequestMapping(value="/testa")
     public String test(HttpServletRequest request){
         System.out.println(request.getRemoteAddr());
-        return "Done!";
+        return "Counter value: "+counterService.getCounterValue();
     }
 
 }

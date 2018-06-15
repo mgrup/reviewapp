@@ -1,11 +1,14 @@
 package com.review.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table (name="USERS")
+@PasswordMatches
 public class User {
     @Id
     @Column(name="id")
@@ -14,11 +17,19 @@ public class User {
 
     @Column(nullable = false)
     @NotEmpty
+    //@ValidEmail
     private String email;
 
-    public User(String email) {
-        this.email = email;
-    }
+    private String lastName;
+
+    private String firstName;
+
+    @NotEmpty
+    @NotNull
+    private String password;
+
+    @Transient
+    private String matchingPassword;
 
     public User() {
     }
@@ -39,11 +50,35 @@ public class User {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                '}';
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getMatchingPassword() {
+        return matchingPassword;
+    }
+
+    public void setMatchingPassword(String matchingPassword) {
+        this.matchingPassword = matchingPassword;
     }
 }

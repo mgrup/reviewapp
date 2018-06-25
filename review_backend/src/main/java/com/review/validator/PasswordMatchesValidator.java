@@ -1,5 +1,6 @@
 package com.review.validator;
 
+import com.review.dto.UserDto;
 import com.review.entity.PasswordMatches;
 import com.review.entity.User;
 
@@ -14,7 +15,7 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
 
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context) {
-        User user = (User) obj;
+        UserDto user = (UserDto) obj;
         return user.getPassword().equals(user.getMatchingPassword());
     }
 }

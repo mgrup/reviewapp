@@ -27,14 +27,14 @@ public class ApplicationCotroller {
     }
 
 
-    @RequestMapping(value="/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity login(@RequestParam("email") String email){
-        User usr = new User();
-        usr.setEmail("radu.muntean@socgen.com");
-        usr.setPassword("aafsfsfsfsdfsdf");
-        User user = userService.create(usr);
-        return ResponseEntity.ok(user);
-    }
+//    @RequestMapping(value="/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+//    public ResponseEntity login(@RequestParam("email") String email){
+//        User usr = new User();
+//        usr.setEmail("radu.muntean@socgen.com");
+//        usr.setPassword("aafsfsfsfsdfsdf");
+//        User user = userService.create(usr);
+//        return ResponseEntity.ok(user);
+//    }
 
     @RequestMapping(value="/users", method = RequestMethod.GET)
     public ResponseEntity getAllUsers(){

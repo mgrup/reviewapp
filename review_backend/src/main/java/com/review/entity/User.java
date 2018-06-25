@@ -8,17 +8,20 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table (name="USERS")
-@PasswordMatches
 public class User {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    @NotEmpty
+    //@Column(nullable = false)
+//    @NotEmpty
     //@ValidEmail
     private String email;
+
+    @Column(nullable = false)
+    @NotEmpty
+    private String username;
 
     private String lastName;
 
@@ -26,10 +29,15 @@ public class User {
 
     @NotEmpty
     @NotNull
+    @JsonIgnore
     private String password;
 
     @Transient
+    @JsonIgnore
     private String matchingPassword;
+
+    @Column(name = "role")
+    private String role;
 
     public User() {
     }
@@ -80,5 +88,21 @@ public class User {
 
     public void setMatchingPassword(String matchingPassword) {
         this.matchingPassword = matchingPassword;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

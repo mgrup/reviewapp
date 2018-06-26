@@ -49,18 +49,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index.html/",
                         "/home",
                         "/rest/api/token",
+                        "/login",
+                        "/rest/api/user",
                         "/rest/api/user/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .loginProcessingUrl("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
 //                .defaultSuccessUrl("/home")
 //                .failureUrl("/error")
                 .successHandler(new CustomAuthenticationSuccessHandler())
                 .failureHandler((httpServletRequest, httpServletResponse, e) -> {
-                    httpServletResponse.setStatus(HttpStatus.FORBIDDEN.value());
+//                    httpServletResponse.setStatus(HttpStatus.FORBIDDEN.value());
+                    System.out.println(e.getMessage());
                 })
                 .permitAll();
 //                .and()
@@ -93,13 +97,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-//        auth.authenticationProvider(authenticationProvider());
-        auth.authenticationProvider(new CustomAuthenticationProvider(userService, passwordEncoder()));
+        auth.authenticationProvider(authenticationProvider());
+//        auth.authenticationProvider(new CustomAuthenticationProvider(userService, passwordEncoder()));
     }
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider
-                = new DaoAuthenticationProvider();
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userService);
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;

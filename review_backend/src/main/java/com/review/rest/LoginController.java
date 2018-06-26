@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-//@RequestMapping(path = "/rest/api", produces = {"application/JSON"})
+@RequestMapping(path = "/rest/api", produces = {"application/JSON"})
 public class LoginController {
     private final UserService userService;
 
@@ -58,17 +58,18 @@ public class LoginController {
         return ResponseEntity.ok(registered);
     }
     @GetMapping("/user")
-    public Principal user(Principal user, HttpServletRequest request) {
+    @ResponseBody
+    public Principal user(Principal principal, HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return user;
+        return principal;
     }
 
-    @RequestMapping("/token")
-    public Map<String,String> token(HttpSession session) {
-        return Collections.singletonMap("token", session.getId());
-    }
-    @Bean
-    HeaderHttpSessionStrategy sessionStrategy() {
-        return new HeaderHttpSessionStrategy();
-    }
+//    @RequestMapping("/token")
+//    public Map<String,String> token(HttpSession session) {
+//        return Collections.singletonMap("token", session.getId());
+//    }
+//    @Bean
+//    HeaderHttpSessionStrategy sessionStrategy() {
+//        return new HeaderHttpSessionStrategy();
+//    }
 }
